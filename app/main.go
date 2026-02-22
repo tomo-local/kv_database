@@ -3,7 +3,17 @@ package main
 import (
 	"flag"
 	"fmt"
+	"os"
 )
+
+func getDataBasePath() string {
+	path := os.Getenv("DATABASE_PATH")
+	if path == "" {
+		return "database/data"
+	}
+
+	return path
+}
 
 func main() {
 
@@ -87,7 +97,7 @@ func main() {
 	}
 
 	database := KV{}
-	database.log.FileName = "./database/data.log"
+	database.log.FileName = getDataBasePath()
 
 	flag.Parse()
 	args := flag.Args()
